@@ -207,13 +207,13 @@ Every table is identified by its name and its address family, so if you have the
   nft add table arp foo
   nft list ruleset
 
-You should now have two new tables, one for IPv4 and one for ARP, both named `foo`.
+You should now have three new tables, one for IPv4, one for IPv6 and one for ARP, all named `foo`.
 
 You can also list all existing tables with::
 
   nft list tables
 
-If you do not want the ARP table anymore, you can simply reverse the command with `delete`::
+If you do not want the ARP table anymore, you can simply `delete` it::
 
   nft delete table arp foo
 

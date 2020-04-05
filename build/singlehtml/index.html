@@ -257,12 +257,12 @@ early filtering and policing.</td>
 <span class="n">nft</span> <span class="nb">list</span> <span class="n">ruleset</span>
 </pre></div>
 </div>
-<p>You should now have two new tables, one for IPv4 and one for ARP, both named <cite>foo</cite>.</p>
+<p>You should now have three new tables, one for IPv4, one for IPv6 and one for ARP, all named <cite>foo</cite>.</p>
 <p>You can also list all existing tables with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="nb">list</span> <span class="n">tables</span>
 </pre></div>
 </div>
-<p>If you do not want the ARP table anymore, you can simply reverse the command with <cite>delete</cite>:</p>
+<p>If you do not want the ARP table anymore, you can simply <cite>delete</cite> it:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">delete</span> <span class="n">table</span> <span class="n">arp</span> <span class="n">foo</span>
 </pre></div>
 </div>
