@@ -12,7 +12,7 @@ This project uses [sphinx](https://www.sphinx-doc.org/ "Sphinx Homepage") to bui
 - `cd nft_bg`
 - `make $target`
 
-where `$target` is one of `{html, pdf}`
+where `$target` is anything supported by sphinx, for instance `{html, singlehtml, latexpdf}`
 
 ## Contribute
 
