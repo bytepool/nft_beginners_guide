@@ -1,6 +1,6 @@
 # A beginner's guide to nftables
 
-As the name suggests, this is a simple beginner's guide to nftables. **You can find prebuilt versions in various formats in the `build/` directory**.
+As the name suggests, this is a simple beginner's guide to nftables. **You can find a prebuilt single html version in the `build/singlehtml` directory**.
 
 This is still a work in progress, but I would appreciate any initial feedback on this project. 
 
@@ -10,9 +10,9 @@ This project uses [sphinx](https://www.sphinx-doc.org/ "Sphinx Homepage") to bui
 
 - `git clone https://github.com/bytepool/nft_beginners_guide.git nft_bg`
 - `cd nft_bg`
-- `make $target`
+- `make singlehtml`
 
-where `$target` is anything supported by sphinx, for instance `{html, singlehtml, latexpdf}`
+The make target can be anything supported by sphinx, for instance `{html, singlehtml, latexpdf}`
 
 ## Contribute
 
