@@ -30,49 +30,69 @@
           <div class="body" role="main">
             
   <div class="section" id="a-beginner-s-guide-to-nftables">
-<h1><a class="toc-backref" href="#id2">A beginner’s guide to nftables</a><a class="headerlink" href="#a-beginner-s-guide-to-nftables" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id3">A beginner’s guide to nftables</a><a class="headerlink" href="#a-beginner-s-guide-to-nftables" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title">Table of contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#a-beginner-s-guide-to-nftables" id="id2">A beginner’s guide to nftables</a><ul>
-<li><a class="reference internal" href="#introduction" id="id3">Introduction</a><ul>
-<li><a class="reference internal" href="#why-this-guide" id="id4">Why this guide?</a></li>
-<li><a class="reference internal" href="#what-is-a-packet-filter" id="id5">What is a packet filter?</a></li>
-<li><a class="reference internal" href="#what-are-nftables-nf-tables-and-netfilter" id="id6">What are nftables, nf_tables and Netfilter?</a></li>
+<li><a class="reference internal" href="#a-beginner-s-guide-to-nftables" id="id3">A beginner’s guide to nftables</a><ul>
+<li><a class="reference internal" href="#introduction" id="id4">Introduction</a><ul>
+<li><a class="reference internal" href="#prerequisite-knowledge" id="id5">Prerequisite Knowledge</a></li>
+<li><a class="reference internal" href="#why-this-guide" id="id6">Why this guide?</a></li>
+<li><a class="reference internal" href="#what-is-a-packet-filter" id="id7">What is a packet filter?</a></li>
+<li><a class="reference internal" href="#what-are-nftables-nf-tables-and-netfilter" id="id8">What are nftables, nf_tables and Netfilter?</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#how-to-enable-or-reset-nftables-with-systemd" id="id7">How to enable or reset nftables with systemd</a></li>
-<li><a class="reference internal" href="#simple-example" id="id8">Simple example</a></li>
-<li><a class="reference internal" href="#basic-concepts" id="id9">Basic concepts</a><ul>
-<li><a class="reference internal" href="#address-families" id="id10">Address families</a></li>
-<li><a class="reference internal" href="#hooks" id="id11">Hooks</a></li>
-<li><a class="reference internal" href="#tables-and-chains" id="id12">Tables and chains</a></li>
-<li><a class="reference internal" href="#rules" id="id13">Rules</a></li>
+<li><a class="reference internal" href="#how-to-enable-or-reset-nftables-with-systemd" id="id9">How to enable or reset nftables with systemd</a></li>
+<li><a class="reference internal" href="#simple-example" id="id10">Simple example</a></li>
+<li><a class="reference internal" href="#basic-concepts" id="id11">Basic concepts</a><ul>
+<li><a class="reference internal" href="#address-families" id="id12">Address families</a></li>
+<li><a class="reference internal" href="#hooks" id="id13">Hooks</a><ul>
+<li><a class="reference internal" href="#ipv4-ipv6-inet-hooks" id="id14">IPv4/IPv6/inet Hooks</a></li>
+<li><a class="reference internal" href="#netdev-hooks" id="id15">Netdev Hooks</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-a-basic-configuration" id="id14">Creating a basic configuration</a></li>
-<li><a class="reference internal" href="#common-use-cases" id="id15">Common use cases</a><ul>
-<li><a class="reference internal" href="#blocking-ports" id="id16">Blocking ports</a></li>
-<li><a class="reference internal" href="#blocking-specific-content" id="id17">Blocking specific content</a></li>
-<li><a class="reference internal" href="#allow-established-connections" id="id18">Allow established connections</a></li>
+<li><a class="reference internal" href="#tables-and-chains" id="id16">Tables and chains</a><ul>
+<li><a class="reference internal" href="#tables" id="id17">Tables</a></li>
+<li><a class="reference internal" href="#chains" id="id18">Chains</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#list-of-common-commands" id="id19">List of common commands</a></li>
-<li><a class="reference internal" href="#advanced-use-cases" id="id20">Advanced use cases</a><ul>
-<li><a class="reference internal" href="#port-knocking" id="id21">Port knocking</a></li>
-<li><a class="reference internal" href="#ddos-protection" id="id22">DDoS protection</a></li>
+<li><a class="reference internal" href="#rules" id="id19">Rules</a><ul>
+<li><a class="reference internal" href="#adding-and-deleting-a-rule" id="id20">Adding and deleting a rule</a></li>
+<li><a class="reference internal" href="#matching-criteria-expressions" id="id21">Matching criteria (expressions)</a></li>
+<li><a class="reference internal" href="#actions-statements" id="id22">Actions (statements)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#acknowledgments" id="id23">Acknowledgments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-a-configuration" id="id23">Creating a configuration</a></li>
+<li><a class="reference internal" href="#common-use-cases" id="id24">Common use cases</a><ul>
+<li><a class="reference internal" href="#blocking-ports" id="id25">Blocking ports</a></li>
+<li><a class="reference internal" href="#blocking-specific-content" id="id26">Blocking specific content</a></li>
+<li><a class="reference internal" href="#allow-established-connections" id="id27">Allow established connections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#list-of-common-commands" id="id28">List of common commands</a></li>
+<li><a class="reference internal" href="#advanced-use-cases" id="id29">Advanced use cases</a><ul>
+<li><a class="reference internal" href="#port-knocking" id="id30">Port knocking</a></li>
+<li><a class="reference internal" href="#ddos-protection" id="id31">DDoS protection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#topics-for-further-exploration" id="id32">Topics for further exploration</a></li>
+<li><a class="reference internal" href="#acknowledgments" id="id33">Acknowledgments</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Welcome, oh curious one! As the title says, this is a beginner’s guide to nftables, the default firewall configuration tool for Linux. If that is of interest to you, read on! If not, but you must work with nftables, read on anyway?</p>
+<div class="section" id="prerequisite-knowledge">
+<h3><a class="toc-backref" href="#id5">Prerequisite Knowledge</a><a class="headerlink" href="#prerequisite-knowledge" title="Permalink to this headline">¶</a></h3>
+<p>I am assuming that you are familiar with Linux in general, comfortable with command line tools, and that you know basic networking. If any of that is not true for you, I strongly recommend that you first read up on those topics and return later; you will not get much out of this tutorial otherwise.</p>
+</div>
 <div class="section" id="why-this-guide">
-<h3><a class="toc-backref" href="#id4">Why this guide?</a><a class="headerlink" href="#why-this-guide" title="Permalink to this headline">¶</a></h3>
-<p>While there are a number of beginner’s guides for <a class="reference external" href="https://netfilter.org/projects/iptables/index.html">iptables</a> and <a class="reference external" href="https://netfilter.org">netfilter</a>, I could not find one that uses <code class="docutils literal notranslate"><span class="pre">nftables</span></code>. Every <code class="docutils literal notranslate"><span class="pre">nftables</span></code> tutorial I have found assumes familiarity with <code class="docutils literal notranslate"><span class="pre">iptables</span></code>. So if you want to teach students basic firewall concepts with Linux, you either have to accept that there are no introductory texts or start with <code class="docutils literal notranslate"><span class="pre">iptables</span></code> before moving on to <code class="docutils literal notranslate"><span class="pre">nftables</span></code>. This simple guide attempts to bridge this gap. In many ways this is simply a filtered collection of information from various manpages and other sources in a format that should be beginner friendly.</p>
+<h3><a class="toc-backref" href="#id6">Why this guide?</a><a class="headerlink" href="#why-this-guide" title="Permalink to this headline">¶</a></h3>
+<p>While there are a number of beginner’s guides for <a class="reference external" href="https://netfilter.org/projects/iptables/index.html">iptables</a> and <a class="reference external" href="https://netfilter.org">netfilter</a>, I could not find one that uses <code class="docutils literal notranslate"><span class="pre">nftables</span></code>. Every <code class="docutils literal notranslate"><span class="pre">nftables</span></code> tutorial I have found assumes familiarity with <code class="docutils literal notranslate"><span class="pre">iptables</span></code>. So if you want to teach students basic firewall concepts with Linux, you either have to accept that there are no introductory texts or start with <code class="docutils literal notranslate"><span class="pre">iptables</span></code> before moving on to <code class="docutils literal notranslate"><span class="pre">nftables</span></code>. This simple guide attempts to bridge this gap. In many ways this is simply a filtered collection of information from various manpages and other sources in a format that aims to be beginner friendly.</p>
 <div class="topic">
 <p class="topic-title">Disclaimer</p>
 <p>I am in no way an expert on either nftables, Netfilter or any of the affiliated projects, so there is a chance that mistakes have crept in. If you find any mistakes, please let me know and I will fix them as soon as possible.</p>
@@ -81,22 +101,28 @@
 <p>Since I borrow heavily from various sources, I have done my best to add appropriate attribution wherever possible.</p>
 </div>
 <div class="section" id="what-is-a-packet-filter">
-<h3><a class="toc-backref" href="#id5">What is a packet filter?</a><a class="headerlink" href="#what-is-a-packet-filter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">What is a packet filter?</a><a class="headerlink" href="#what-is-a-packet-filter" title="Permalink to this headline">¶</a></h3>
 <p>A packet filter, colloquially also known as a firewall, allows an administrator to match network packets with a set of rules that specify how to handle matching packets. For instance you can drop packets, count and log packets, or allow a certain subset of packets.</p>
 <p>A simple rule could be to block all traffic to TCP port 22 except for a specific IP address. Similarly, an administrator could block all outgoing packets to the network 10.0.0.0/8, or if the machine routes packets between networks A and B, the administrator could add a rule that allows all HTTP traffic from network A to B but blocks all other traffic from A to B.</p>
 <p>The above are just some simple examples and Netfilter in particular has many more capabilities and features. We will demonstrate several more as we go along.</p>
 </div>
 <div class="section" id="what-are-nftables-nf-tables-and-netfilter">
-<h3><a class="toc-backref" href="#id6">What are nftables, nf_tables and Netfilter?</a><a class="headerlink" href="#what-are-nftables-nf-tables-and-netfilter" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">What are nftables, nf_tables and Netfilter?</a><a class="headerlink" href="#what-are-nftables-nf-tables-and-netfilter" title="Permalink to this headline">¶</a></h3>
 <p>To quote from the <code class="docutils literal notranslate"><span class="pre">nft</span></code> manpage, “<em>nft is the command line tool used to set up, maintain and inspect packet filtering […] rules in the Linux kernel, in the nftables framework. The Linux kernel subsystem is known as nf_tables, and ‘nf’ stands for Netfilter.</em>”</p>
-<p>Netfilter has been the kernel’s packet filtering subsystem since Linux 2.4.x, and for a long time <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, <code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>, <code class="docutils literal notranslate"><span class="pre">arptables</span></code> and <code class="docutils literal notranslate"><span class="pre">ebtables</span></code> have been the main user space utilities to administer the various packet filtering rules. However, their interfaces are less flexible than some people would like, and maintaining larger rulesets can be somewhat cumbersome. Therefore, <code class="docutils literal notranslate"><span class="pre">nftables</span></code> was developed and saw its first official release in Linux 3.13.</p>
-<p><code class="docutils literal notranslate"><span class="pre">nft</span></code> has a completely different syntax than <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, which might take some getting used to for people accustomed to <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, but <code class="docutils literal notranslate"><span class="pre">nft</span></code> has some nice features that make it worth your while. For instance, <code class="docutils literal notranslate"><span class="pre">nft</span></code> can handle all use cases that previously required four separate tools (<code class="docutils literal notranslate"><span class="pre">iptables</span></code>, <code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>, <code class="docutils literal notranslate"><span class="pre">arptables</span></code> and <code class="docutils literal notranslate"><span class="pre">ebtables</span></code>). So instead of having to write two separate rules for a content match in IPv4 and IPv6, <code class="docutils literal notranslate"><span class="pre">nft</span></code> can achieve the same match with a single rule.</p>
+<p><a class="reference external" href="https://netfilter.org">Netfilter</a> has been the kernel’s packet filtering subsystem since Linux 2.4.x, and for a long time <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, <code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>, <code class="docutils literal notranslate"><span class="pre">arptables</span></code> and <code class="docutils literal notranslate"><span class="pre">ebtables</span></code> have been the main user space utilities to administer the various packet filtering rules. However, their interfaces are less flexible than some people would like, and maintaining larger rulesets can be somewhat cumbersome. Therefore, <a class="reference external" href="https://netfilter.org/projects/nftables/index.html">nftables</a> was developed and saw its first official release in Linux 3.13.</p>
+<p><code class="docutils literal notranslate"><span class="pre">nft</span></code> has a completely different syntax than <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, which might take some getting used to for people accustomed to <code class="docutils literal notranslate"><span class="pre">iptables</span></code>, but <code class="docutils literal notranslate"><span class="pre">nft</span></code> has some nice features that make it worth your while. For instance, <code class="docutils literal notranslate"><span class="pre">nft</span></code> can handle all use cases that previously required four separate tools (<code class="docutils literal notranslate"><span class="pre">iptables</span></code>, <code class="docutils literal notranslate"><span class="pre">ip6tables</span></code>, <code class="docutils literal notranslate"><span class="pre">arptables</span></code> and <code class="docutils literal notranslate"><span class="pre">ebtables</span></code>). Also, instead of having to write two separate rules for a content match in IPv4 and IPv6, <code class="docutils literal notranslate"><span class="pre">nft</span></code> can achieve the same match with a single rule.</p>
 <p>For more examples why <code class="docutils literal notranslate"><span class="pre">nftables</span></code> makes your life easier, see: <a class="reference external" href="https://home.regit.org/2014/01/why-you-will-love-nftables/">Why you will love nftables</a></p>
-<p>My main two complaints about <code class="docutils literal notranslate"><span class="pre">nftables</span></code> in its current state are (1) that the documentation is severely lacking (one of the reasons why I am writing this tutorial), and (2) that the online help of <code class="docutils literal notranslate"><span class="pre">nft</span></code> could be improved a lot, meaning the positional arguments to <code class="docutils literal notranslate"><span class="pre">nft</span></code> are not always obvious.</p>
+<p>My main two complaints about <code class="docutils literal notranslate"><span class="pre">nftables</span></code> in its current state are (1) that the documentation is lacking (one of the reasons why I am writing this tutorial), and (2) that the online help of <code class="docutils literal notranslate"><span class="pre">nft</span></code> could be improved a lot, meaning the positional arguments to <code class="docutils literal notranslate"><span class="pre">nft</span></code> are not always obvious (try for instance <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">list</span></code> and decide for yourself if the error message is helpful…). It also seems that no one has written a bash completion for <code class="docutils literal notranslate"><span class="pre">nftables</span></code> yet <a class="footnote-reference" href="#bash-completion" id="id1">[1]</a>…</p>
+<table class="docutils footnote" frame="void" id="bash-completion" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Bored? Always wanted to learn how to write bash_completions? Do the community a favor and write one for <code class="docutils literal notranslate"><span class="pre">nft</span></code>! See <a class="reference external" href="https://github.com/scop/bash-completion/">https://github.com/scop/bash-completion/</a> for more info!</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="section" id="how-to-enable-or-reset-nftables-with-systemd">
-<h2><a class="toc-backref" href="#id7">How to enable or reset nftables with systemd</a><a class="headerlink" href="#how-to-enable-or-reset-nftables-with-systemd" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">How to enable or reset nftables with systemd</a><a class="headerlink" href="#how-to-enable-or-reset-nftables-with-systemd" title="Permalink to this headline">¶</a></h2>
 <p>I am assuming that you already have nftables installed, otherwise install it with your method of choice.</p>
 <p>Most GNU/Linux distributions use systemd as their init system now, so I will only cover systemd here. In all likelihood, nftables is already enabled, but if it is not, you can enable it as root with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">enable</span> <span class="n">nftables</span><span class="o">.</span><span class="n">service</span>
@@ -108,7 +134,7 @@
 </div>
 </div>
 <div class="section" id="simple-example">
-<h2><a class="toc-backref" href="#id8">Simple example</a><a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Simple example</a><a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h2>
 <p>Before we get into the basic concepts, let us start with a simple example, just to give you an idea how <code class="docutils literal notranslate"><span class="pre">nftables</span></code> works.</p>
 <p>Let us start by listing all existing rules:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="nb">list</span> <span class="n">ruleset</span>
@@ -149,6 +175,7 @@
 </pre></div>
 </div>
 <p>If everything is set up correctly, the client will not be able to connect to the server, so anything you type on the client will not reach the server. If you are not familiar with <code class="docutils literal notranslate"><span class="pre">netcat</span></code>, you might want to try it without any firewall rules first to see what is supposed to happen.</p>
+<p>But there is an even simpler way to test that the rule is being matched: the “counter” keyword in the rule indicates that matches should be counted, so if you run <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">list</span> <span class="pre">ruleset</span></code> before the rule is matched and after the rule is matched, you should see that there is a counter that increases.</p>
 <p>This example was inspired by <a class="reference external" href="https://www.youtube.com/channel/UCFFLP0dKesrKWccYscdAr9A">theurbanpenguin</a> and <a class="reference external" href="https://www.youtube.com/channel/UC0A3ldncnGQ1M_RU2Wb4L2A">quidsup</a> on youtube, who each have a nice, short <code class="docutils literal notranslate"><span class="pre">nft</span></code> video tutorial:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.youtube.com/watch?v=Hpfcd7qZUis">RHCSA 8 - Native Nftables Firewalls on Red Hat Enterprise Linux 8</a></li>
@@ -156,9 +183,9 @@
 </ul>
 </div>
 <div class="section" id="basic-concepts">
-<h2><a class="toc-backref" href="#id9">Basic concepts</a><a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Basic concepts</a><a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="address-families">
-<h3><a class="toc-backref" href="#id10">Address families</a><a class="headerlink" href="#address-families" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Address families</a><a class="headerlink" href="#address-families" title="Permalink to this headline">¶</a></h3>
 <p>Nftables has support for six address families (reproduced from the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a>):</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -185,10 +212,10 @@
 </div>
 </div>
 <div class="section" id="hooks">
-<h3><a class="toc-backref" href="#id11">Hooks</a><a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h3>
-<p>Hooks allow you to specify at which stage during the packet processing in the network stack you would like to match your rules. The different address families have different hooks, but in this guide we will focus only on IPv4/IPv6/Inet and Netdev.</p>
+<h3><a class="toc-backref" href="#id13">Hooks</a><a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h3>
+<p>Hooks allow you to specify at which stage during the packet processing in the network stack you would like to match your rules. The different address families have different hooks, but in this guide we will focus only on IPv4/IPv6/inet and Netdev.</p>
 <div class="section" id="ipv4-ipv6-inet-hooks">
-<h4>IPv4/IPv6/Inet Hooks<a class="headerlink" href="#ipv4-ipv6-inet-hooks" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id14">IPv4/IPv6/inet Hooks</a><a class="headerlink" href="#ipv4-ipv6-inet-hooks" title="Permalink to this headline">¶</a></h4>
 <p>There are five hooks you can use for the IPv4, IPv6 and inet address families:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -223,7 +250,7 @@ or changing packet attributes that affect routing.</td>
 <p>On a regular workstation, you can cover the most common use cases with just the <cite>input</cite> and <cite>output</cite> hooks, and if you use VMs or containers potentially the <cite>forward</cite> hook.</p>
 </div>
 <div class="section" id="netdev-hooks">
-<h4>Netdev Hooks<a class="headerlink" href="#netdev-hooks" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id15">Netdev Hooks</a><a class="headerlink" href="#netdev-hooks" title="Permalink to this headline">¶</a></h4>
 <p>For the netdev address family, there is a single hook:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -246,99 +273,215 @@ early filtering and policing.</td>
 </div>
 </div>
 <div class="section" id="tables-and-chains">
-<h3><a class="toc-backref" href="#id12">Tables and chains</a><a class="headerlink" href="#tables-and-chains" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Tables and chains</a><a class="headerlink" href="#tables-and-chains" title="Permalink to this headline">¶</a></h3>
 <p>Tables are containers for chains, and chains are containers for rules, as you have seen in the <a class="reference internal" href="#simple-example">simple example</a>.</p>
 <div class="section" id="tables">
-<h4>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id17">Tables</a><a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h4>
 <p>Every table is identified by its name and its address family, so if you have the same table name for different address families, those are separate tables. Try for instance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">ip</span> <span class="n">foo</span>
-<span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">ip6</span> <span class="n">foo</span>
-<span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">arp</span> <span class="n">foo</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">ip</span> <span class="n">tutorial</span>
+<span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">ip6</span> <span class="n">tutorial</span>
+<span class="n">nft</span> <span class="n">add</span> <span class="n">table</span> <span class="n">arp</span> <span class="n">tutorial</span>
 <span class="n">nft</span> <span class="nb">list</span> <span class="n">ruleset</span>
 </pre></div>
 </div>
-<p>You should now have three new tables, one for IPv4, one for IPv6 and one for ARP, all named <cite>foo</cite>.</p>
+<p>You should now have three new tables, one for IPv4, one for IPv6 and one for ARP, all named <cite>tutorial</cite>.</p>
 <p>You can also list all existing tables with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="nb">list</span> <span class="n">tables</span>
 </pre></div>
 </div>
 <p>If you do not want the ARP table anymore, you can simply <cite>delete</cite> it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">delete</span> <span class="n">table</span> <span class="n">arp</span> <span class="n">foo</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">delete</span> <span class="n">table</span> <span class="n">arp</span> <span class="n">tutorial</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="chains">
-<h4>Chains<a class="headerlink" href="#chains" title="Permalink to this headline">¶</a></h4>
+<h4><a class="toc-backref" href="#id18">Chains</a><a class="headerlink" href="#chains" title="Permalink to this headline">¶</a></h4>
 <p>There are two types of chains:</p>
 <ol class="arabic simple">
 <li><strong>base chains</strong>, which are hooked into the network stack using the <a class="reference internal" href="#hooks">hooks</a> described earlier, and</li>
 <li><strong>regular chains</strong>, which can be used as jump targets from base chains, allowing for better rule organization.</li>
 </ol>
 <p>Every chain must belong to a table, so the minimum command to create a new chain looks as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">foo</span> <span class="n">mychain</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">tutorial</span> <span class="n">test</span><span class="o">-</span><span class="n">chain</span>
 </pre></div>
 </div>
-<p>We have now created a new chain called <cite>mychain</cite> in the table <cite>foo</cite>. But wait, if you followed along, you had two tables named <cite>foo</cite>, one for the address family <cite>ip</cite> and one for <cite>ip6</cite>! So which one was it added to? The attentive reader will remember that if no address family is specified, it defaults to <cite>ip</cite>. So the above command added <cite>mychain</cite> only to the <cite>ip foo</cite> table. You can easily verify this with:</p>
+<p>We have now created a new chain called <cite>test-chain</cite> in the table <cite>tutorial</cite>. But wait, if you followed along, you had two tables named <cite>tutorial</cite>, one for the address family <cite>ip</cite> and one for <cite>ip6</cite>! So which one was it added to? The attentive reader will remember that if no address family is specified, it defaults to <cite>ip</cite>. So the above command added <cite>test-chain</cite> only to the <cite>ip tutorial</cite> table. You can easily verify this with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="nb">list</span> <span class="n">ruleset</span>
 </pre></div>
 </div>
 <p>In order to avoid any confusion, it is probably best to always add the address family as well:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">ip6</span> <span class="n">foo</span> <span class="n">mychain</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">ip6</span> <span class="n">tutorial</span> <span class="n">test</span><span class="o">-</span><span class="n">chain</span>
 </pre></div>
 </div>
-<p>This successfully added <cite>mychain</cite> to the <cite>ip6 foo</cite> table.</p>
-<p>You may have noted that we specified no hooks, so <cite>mychain</cite> is a <strong>regular chain</strong>, and is currently unused.</p>
+<p>This successfully added <cite>test-chain</cite> to the <cite>ip6 tutorial</cite> table. So the basic syntax to add a chain is:</p>
+<div class="highlight-perl notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="nv">$addr_family</span> <span class="nv">$table_name</span> <span class="nv">$chain_name</span>
+</pre></div>
+</div>
+<p>I found this syntax slightly confusing in the beginning: I would have expected the chain name to come directly after <cite>add chain</cite>. But if you think about it, the address family and the table name are necessary to specify the namespace of the chain, so in a way they are part of the chain’s name. At the very least, <code class="docutils literal notranslate"><span class="pre">nft</span></code> is very consistent, all commands follow this pattern of first specifying the namespace that you want to act upon before any other arguments.</p>
+<p>You may have noticed that we specified no hooks, so <cite>test-chain</cite> is a <strong>regular chain</strong>, and is currently unused.</p>
 <p>In order to create a <strong>base chain</strong> that hooks into the network stack, you have to add the desired <strong>hook</strong>, a specific <strong>type</strong> and a desired <strong>priority</strong>. We already covered <a class="reference internal" href="#hooks">hooks</a>. The <strong>type</strong> can be one of <cite>filter</cite>, <cite>nat</cite> and <cite>route</cite>. For our purposes in this beginner’s guide, the type will always be <cite>filter</cite>. Finally, as the name suggests, <strong>priorities</strong> allow you to specify a priority to determine in which order the chains are traversed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Since this is a beginner’s guide, I will not elaborate any further on types and priorities, but the interested reader is pointed to the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a>, and for additional background reading to the excellent <a class="reference external" href="https://rlworkman.net/howtos/iptables/chunkyhtml/index.html">iptables tutorial</a>, specifically <a class="reference external" href="https://rlworkman.net/howtos/iptables/chunkyhtml/c962.html">Chapter 6 Traversing tables and chains</a>. Just note that the iptables tutorial is outdated, I would not recommend to read it as standalone documentation, make sure to crossreference it with the information in the <code class="docutils literal notranslate"><span class="pre">nft</span></code> <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a>.</p>
+<p class="last">Since this is a beginner’s guide, I will not elaborate any further on types and priorities, but the interested reader is pointed to the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a>, and for additional background reading to the nice <a class="reference external" href="https://rlworkman.net/howtos/iptables/chunkyhtml/index.html">iptables tutorial</a>, specifically <a class="reference external" href="https://rlworkman.net/howtos/iptables/chunkyhtml/c962.html">Chapter 6 Traversing tables and chains</a>. Just note that the iptables tutorial is outdated, I would not recommend to read it as standalone documentation, make sure to crossreference it with the information in the <code class="docutils literal notranslate"><span class="pre">nft</span></code> <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a>. Also note that there are predefined names for certain priority values, so “priority 0” might show up as “priority filter” when you list the chain.</p>
 </div>
-<p>In the <a class="reference internal" href="#simple-example">simple example</a> you already saw how to create a base chain:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">myoutputchain</span> <span class="p">{</span> <span class="nb">type</span> <span class="nb">filter</span> <span class="n">hook</span> <span class="n">output</span> <span class="n">priority</span> <span class="mi">0</span> \<span class="p">;</span> <span class="p">}</span>
+<p>In the <a class="reference internal" href="#simple-example">simple example</a> you already saw how to create a base chain for an input filter. Let us now create an output filter instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">chain</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span> <span class="p">{</span> <span class="nb">type</span> <span class="nb">filter</span> <span class="n">hook</span> <span class="n">output</span> <span class="n">priority</span> <span class="mi">0</span> \<span class="p">;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>This adds a new chain to the table <cite>inet filter</cite>, hooking onto the output hook. In other words, all IP packets that are created on your system and are about to be sent out will traverse this chain.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When listing the ruleset, you may have noticed that most chains have an entry “policy accept;” . The policy entry denotes the default policy for a base chain, meaning that if no rule match is found for the packet that is being inspected, do what the default policy says. If not specified, the default policy is to accept packets, but you can change the policy to drop if desired.</p>
+</div>
+<p>Before we move on to rules, let us make one final observation about chains. We already know that chains are containers for rules, but it is important to note that the <strong>rules are ordered and chains are traversed in-order</strong>.</p>
 </div>
 </div>
 <div class="section" id="rules">
-<h3><a class="toc-backref" href="#id13">Rules</a><a class="headerlink" href="#rules" title="Permalink to this headline">¶</a></h3>
-<p>TBD</p>
+<h3><a class="toc-backref" href="#id19">Rules</a><a class="headerlink" href="#rules" title="Permalink to this headline">¶</a></h3>
+<p>Rules are the building blocks of any firewall. Rules define conditional actions, such as “if the packet matches pattern ‘A’ then drop it”.</p>
+<p>There are generally three parts to a rule:</p>
+<ol class="arabic simple">
+<li>its namespace (address family + table + chain), specifying when and where to match</li>
+<li>its matching criteria, specifying what to match</li>
+<li>its action, specifying what to do when a match occurs</li>
+</ol>
+<p>Technically, this is not entirely accurate and rules can be much more complex than this, but we will focus on some of the simplest, yet useful, cases. If you want all the nitty-gritty details, see the <code class="docutils literal notranslate"><span class="pre">EXPRESSIONS</span></code> (matching criteria) and <code class="docutils literal notranslate"><span class="pre">STATEMENTS</span></code> (actions) sections in the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a> (covering approximately 3/4 of the manual).</p>
+<div class="section" id="adding-and-deleting-a-rule">
+<h4><a class="toc-backref" href="#id20">Adding and deleting a rule</a><a class="headerlink" href="#adding-and-deleting-a-rule" title="Permalink to this headline">¶</a></h4>
+<p>You can add a rule with the <code class="docutils literal notranslate"><span class="pre">add</span> <span class="pre">rule</span></code> command. Here is a simple example that blocks any packets originating from this machine that are addressed to the network 192.168.0.0/24 (<code class="docutils literal notranslate"><span class="pre">daddr</span></code> is short for destination address):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">rule</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span> <span class="n">ip</span> <span class="n">daddr</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="n">drop</span>
+</pre></div>
+</div>
+<p>If you now try to ping an address in the 192.168.0.0/24 network, you should get an <code class="docutils literal notranslate"><span class="pre">Operation</span> <span class="pre">not</span> <span class="pre">permitted</span></code> error.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">add</span></code> appends the rule to the chain; you can use <code class="docutils literal notranslate"><span class="pre">insert</span></code> instead to insert a new rule at the beginning of the chain.</p>
+<p>What’s that? You actually have your router on 192.168.0.1 and you can’t reach the internet anymore? Alright, let us delete the rule again. In order to delete a specific rule, you need to know its handle, which you can find using <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">--handle</span> <span class="pre">list</span></code> (short arg: <code class="docutils literal notranslate"><span class="pre">-a</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="o">-</span><span class="n">a</span> <span class="nb">list</span> <span class="n">chain</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span>
+</pre></div>
+</div>
+<p>The output should be something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="p">{</span>
+      <span class="n">chain</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span> <span class="p">{</span> <span class="c1"># handle 1</span>
+              <span class="nb">type</span> <span class="nb">filter</span> <span class="n">hook</span> <span class="n">output</span> <span class="n">priority</span> <span class="nb">filter</span><span class="p">;</span> <span class="n">policy</span> <span class="n">accept</span><span class="p">;</span>
+              <span class="n">ip</span> <span class="n">daddr</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="n">drop</span> <span class="c1"># handle 2</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In my case the handle for the rule is 2, so we can delete the rule like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">delete</span> <span class="n">rule</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span> <span class="n">handle</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>You can also <code class="docutils literal notranslate"><span class="pre">replace</span></code> rules using the handle, please see the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a> for details.</p>
+</div>
+<div class="section" id="matching-criteria-expressions">
+<h4><a class="toc-backref" href="#id21">Matching criteria (expressions)</a><a class="headerlink" href="#matching-criteria-expressions" title="Permalink to this headline">¶</a></h4>
+<p>Let us examine the previous rule again:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="n">add</span> <span class="n">rule</span> <span class="n">inet</span> <span class="nb">filter</span> <span class="n">my</span><span class="o">-</span><span class="n">output</span> <span class="n">ip</span> <span class="n">daddr</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span> <span class="n">drop</span>
+</pre></div>
+</div>
+<p>Clearly, <code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">daddr</span> <span class="pre">192.168.0.0/24</span></code> is the matching criteria, and of course there are many more possible criteria. I will attempt to highlight some of the most useful matching criteria here:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip <span class="o">{</span> protocol <span class="p">|</span> ttl <span class="p">|</span> saddr <span class="p">|</span> daddr <span class="o">}</span>
+ip6 <span class="o">{</span> nexthdr <span class="p">|</span> hoplimit <span class="p">|</span> saddr <span class="p">|</span> daddr <span class="o">}</span>
+icmp <span class="o">{</span> <span class="nb">type</span> <span class="p">|</span> code <span class="o">}</span>
+icmp6 <span class="o">{</span> <span class="nb">type</span> <span class="p">|</span> code <span class="o">}</span>
+tcp <span class="o">{</span> sport <span class="p">|</span> dport <span class="p">|</span> flags <span class="o">}</span>
+udp <span class="o">{</span> sport <span class="p">|</span> dport <span class="o">}</span>
+iifname
+oifname
+ct state
+</pre></div>
+</div>
+<p>Most of these should be relatively self-explanatory, but here are some pointers:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">saddr</span></code> and <code class="docutils literal notranslate"><span class="pre">daddr</span></code> stand for source and destination address</li>
+<li><code class="docutils literal notranslate"><span class="pre">sport</span></code> and <code class="docutils literal notranslate"><span class="pre">dport</span></code> stand for source port and destination port</li>
+<li><code class="docutils literal notranslate"><span class="pre">iifname</span></code> and <code class="docutils literal notranslate"><span class="pre">oifname</span></code> stand for input and output interface name</li>
+<li><code class="docutils literal notranslate"><span class="pre">ct</span></code> stands for connection tracker</li>
+</ul>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">iifname</span> <span class="pre">&quot;eth0&quot;</span></code> matches on packets that entered through interface <code class="docutils literal notranslate"><span class="pre">eth0</span></code>, and <code class="docutils literal notranslate"><span class="pre">ct</span> <span class="pre">state</span> <span class="pre">established,related</span></code> matches packets that have a state of established or related in <code class="docutils literal notranslate"><span class="pre">nf_tables</span></code>’ connection tracker.</p>
+</div>
+<div class="section" id="actions-statements">
+<h4><a class="toc-backref" href="#id22">Actions (statements)</a><a class="headerlink" href="#actions-statements" title="Permalink to this headline">¶</a></h4>
+<p>Once you matched a packet, <code class="docutils literal notranslate"><span class="pre">nftables</span></code> needs to know what to do with it. That is where statements come in, they specify the action to be taken. Let me be lazy here and quote from the <a class="reference external" href="https://www.netfilter.org/projects/nftables/manpage.html">manpage</a> again:</p>
+<p>“<em>Statements represent actions to be performed. They can alter control flow (return, jump to a different chain, accept or drop the packet) or can perform actions, such as logging, rejecting a packet, etc.</em>”</p>
+<p>They go on to say that there are two kind of statements:</p>
+<ol class="arabic simple">
+<li>“<strong>terminal statements</strong> <em>unconditionally terminate evaluation of the current rule</em>”, whereas</li>
+<li>“<strong>non-terminal statements</strong> <em>either only conditionally or never terminate evaluation of the current rule</em>”</li>
+</ol>
+<p>“<em>There can be an arbitrary amount of non-terminal statements in a rule, but only a single terminal statement as the final statement.</em>”</p>
+<p>Alright, enough quoting!</p>
 </div>
 </div>
-<div class="section" id="creating-a-basic-configuration">
-<h2><a class="toc-backref" href="#id14">Creating a basic configuration</a><a class="headerlink" href="#creating-a-basic-configuration" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="creating-a-configuration">
+<h2><a class="toc-backref" href="#id23">Creating a configuration</a><a class="headerlink" href="#creating-a-configuration" title="Permalink to this headline">¶</a></h2>
 <p>There are two main ways of using <code class="docutils literal notranslate"><span class="pre">nft</span></code> to configure your firewall:</p>
 <ol class="arabic simple">
 <li>Using the CLI tool <code class="docutils literal notranslate"><span class="pre">nft</span></code> (or its interactive mode <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">-i</span></code>) to create tables, chains and rules as you go along.</li>
-<li>Using a configuration file that you input to <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">-f</span></code> (default config typcially at <code class="docutils literal notranslate"><span class="pre">/etc/nftables.conf</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/nftables.conf</span></code>) (TODO: look up upstream location).</li>
+<li>Using a configuration file that you input to <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">-f</span></code> (system config typically at <code class="docutils literal notranslate"><span class="pre">/etc/nftables.conf</span></code> or <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/nftables.conf</span></code>).</li>
 </ol>
-<p>Obviously you can write a basic configuration file, and make dynamic changes with <code class="docutils literal notranslate"><span class="pre">nft</span></code> as you see fit.</p>
+<p>Obviously you can first write a basic configuration file, and make dynamic changes with <code class="docutils literal notranslate"><span class="pre">nft</span></code> as you see fit.</p>
+<p>A nice property of <code class="docutils literal notranslate"><span class="pre">nft</span></code> is that the output of <code class="docutils literal notranslate"><span class="pre">nft</span> <span class="pre">list</span> <span class="pre">ruleset</span></code> can be used as valid configuration file, so if you are happy with your current firewall configuration, and you want to override the previous default, you can simply run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nft</span> <span class="nb">list</span> <span class="n">ruleset</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nftables</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>and your current configuration will be the new default. You can test this by flushing the ruleset and restarting nftables (see <a class="reference internal" href="#how-to-enable-or-reset-nftables-with-systemd">How to enable or reset nftables with systemd</a>).</p>
 </div>
 <div class="section" id="common-use-cases">
-<h2><a class="toc-backref" href="#id15">Common use cases</a><a class="headerlink" href="#common-use-cases" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id24">Common use cases</a><a class="headerlink" href="#common-use-cases" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="blocking-ports">
-<h3><a class="toc-backref" href="#id16">Blocking ports</a><a class="headerlink" href="#blocking-ports" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Blocking ports</a><a class="headerlink" href="#blocking-ports" title="Permalink to this headline">¶</a></h3>
 <p>TBD</p>
 </div>
 <div class="section" id="blocking-specific-content">
-<h3><a class="toc-backref" href="#id17">Blocking specific content</a><a class="headerlink" href="#blocking-specific-content" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id26">Blocking specific content</a><a class="headerlink" href="#blocking-specific-content" title="Permalink to this headline">¶</a></h3>
 <p>TBD</p>
 </div>
 <div class="section" id="allow-established-connections">
-<h3><a class="toc-backref" href="#id18">Allow established connections</a><a class="headerlink" href="#allow-established-connections" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">Allow established connections</a><a class="headerlink" href="#allow-established-connections" title="Permalink to this headline">¶</a></h3>
 <p>TBD</p>
 </div>
 </div>
 <div class="section" id="list-of-common-commands">
-<h2><a class="toc-backref" href="#id19">List of common commands</a><a class="headerlink" href="#list-of-common-commands" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id28">List of common commands</a><a class="headerlink" href="#list-of-common-commands" title="Permalink to this headline">¶</a></h2>
 <p>TBD</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># list all rules</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">## Listing rules</span>
+<span class="c1"># list all rules</span>
 nft list ruleset
 
 <span class="c1"># list all IPv4 rules</span>
 nft list ruleset ip
 
-<span class="c1"># remove (flush) all rules</span>
+<span class="c1"># list names of all tables</span>
+nft list tables
+
+<span class="c1"># list all chains</span>
+nft list chains
+
+<span class="c1"># list all rules in the given table</span>
+nft list <span class="nv">$addr_family</span> <span class="nv">$table_name</span>
+
+<span class="c1">## Tables</span>
+<span class="c1"># add a table</span>
+nft add table <span class="nv">$table_name</span>
+
+<span class="c1"># delete a table</span>
+nft delete table <span class="nv">$table_name</span>
+
+<span class="c1">## Chains</span>
+<span class="c1"># add a chain</span>
+nft add chain <span class="nv">$addr_family</span> <span class="nv">$table_name</span> <span class="nv">$chain_name</span>
+
+<span class="c1"># delete a chain</span>
+nft delete chain <span class="nv">$addr_family</span> <span class="nv">$table_name</span> <span class="nv">$chain_name</span>
+
+<span class="c1">## Rules</span>
+<span class="c1"># add a rule</span>
+TODO
+
+<span class="c1">## Bulk removal</span>
+<span class="c1"># remove (flush) all rules (and all tables and chains)</span>
 nft flush ruleset
 
 <span class="c1"># remove (flush) IPv$ rules</span>
@@ -347,28 +490,42 @@ nft flush ruleset ip
 </div>
 </div>
 <div class="section" id="advanced-use-cases">
-<h2><a class="toc-backref" href="#id20">Advanced use cases</a><a class="headerlink" href="#advanced-use-cases" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id29">Advanced use cases</a><a class="headerlink" href="#advanced-use-cases" title="Permalink to this headline">¶</a></h2>
+<p>Just to highlight that you can do much more than the basic cases presented earlier, here are some fun examples of what else is possible with <cite>nftables</cite>.</p>
 <div class="section" id="port-knocking">
-<h3><a class="toc-backref" href="#id21">Port knocking</a><a class="headerlink" href="#port-knocking" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id30">Port knocking</a><a class="headerlink" href="#port-knocking" title="Permalink to this headline">¶</a></h3>
 <p>TODO: basic description of port knocking.</p>
 <p>TODO: port knocking example.</p>
 </div>
 <div class="section" id="ddos-protection">
-<h3><a class="toc-backref" href="#id22">DDoS protection</a><a class="headerlink" href="#ddos-protection" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">DDoS protection</a><a class="headerlink" href="#ddos-protection" title="Permalink to this headline">¶</a></h3>
 <p>It is difficult to protect against DDoS attacks, but <code class="docutils literal notranslate"><span class="pre">nftables</span></code> allows you to filter packets as soon as they arrive to avoid using unnecessary resources, thus giving you a little bit more breathing room. You can use the address family <code class="docutils literal notranslate"><span class="pre">netdev</span></code> for this. <code class="docutils literal notranslate"><span class="pre">netdev</span></code> includes all traffic directed at your network interface, just after it was passed to the network stack and before any protocol parsing. See also the <a class="reference external" href="https://wiki.nftables.org/wiki-nftables/index.php/Nftables_families#netdev">nftables Wiki</a>.</p>
 <p>TODO: example rules here.</p>
 </div>
 </div>
+<div class="section" id="topics-for-further-exploration">
+<h2><a class="toc-backref" href="#id32">Topics for further exploration</a><a class="headerlink" href="#topics-for-further-exploration" title="Permalink to this headline">¶</a></h2>
+<p>Since this is a beginner’s tutorial, I focused on the most common use cases. However, there are many more features to explore, some I have already hinted at:</p>
+<ul class="simple">
+<li>connection tracker (conntrack): <cite>ct helper</cite>, <cite>ct timeout</cite>, <cite>ct expectation</cite>)</li>
+<li>quotas</li>
+<li><cite>nat</cite> and <cite>route</cite> chain types</li>
+<li>chain priorities</li>
+<li>sets</li>
+<li>maps</li>
+<li>flowtables</li>
+<li>stateful objects</li>
+<li>etc.</li>
+</ul>
+</div>
 <div class="section" id="acknowledgments">
-<h2><a class="toc-backref" href="#id23">Acknowledgments</a><a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">Acknowledgments</a><a class="headerlink" href="#acknowledgments" title="Permalink to this headline">¶</a></h2>
 <p>A special thanks to the <a class="reference external" href="http://www.kernel.org/">Linux kernel community</a>, as well as the <a class="reference external" href="https://netfilter.org">netfilter</a> and <a class="reference external" href="https://netfilter.org/projects/nftables/index.html">nftables</a> communities, for their much appreciated work! I am also grateful for the people around <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a> for having written a great documentation generator.</p>
-<p>Many innovations we see today would not be possible without open source software in general, not to mention the important role it plays for democratic societies. Computing would be very dull without it!</p>
-<p>Therefore, I would also like to thank everyone involved in the open source ecosystem in general <a class="footnote-reference" href="#f1" id="id1">[1]</a>: please keep up the good work! :)</p>
-<p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="f1" rules="none">
+<p>Many innovations we see today would not be possible without open source software in general, and together with open standards OSS has an important role to play in democratic societies. Not to mention that computing would be very dull without it! Therefore, <strong>I would also like to thank everyone involved in the open source ecosystem in general</strong> <a class="footnote-reference" href="#oss-thanks" id="id2">[2]</a>: please keep up the good work! :)</p>
+<table class="docutils footnote" frame="void" id="oss-thanks" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If I were to list all the free and open source software I use daily we would still sit here tomorrow. However, I cannot resist listing a few projects and communities especially dear to my heart: <a class="reference external" href="https://www.debian.org/">Debian</a>, <a class="reference external" href="https://www.gnu.org/software/emacs/">Emacs</a>, <a class="reference external" href="https://www.gnu.org/">GNU</a>, <a class="reference external" href="https://www.kernel.org/">Linux</a>, <a class="reference external" href="http://www.python.org/">Python</a>, <a class="reference external" href="https://www.latex-project.org/">LaTeX</a>, <a class="reference external" href="https://i3wm.org/">i3</a> and <a class="reference external" href="https://www.mozilla.org/">Mozilla</a>. :)</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>If I were to list all the free and open source software I use daily we would still sit here tomorrow. However, I cannot resist listing a few projects and communities especially dear to my heart: <a class="reference external" href="https://www.debian.org/">Debian</a>, <a class="reference external" href="https://www.gnu.org/software/emacs/">Emacs</a>, <a class="reference external" href="https://www.gnu.org/">GNU</a>, <a class="reference external" href="https://www.kernel.org/">Linux</a>, <a class="reference external" href="http://www.python.org/">Python</a>, <a class="reference external" href="https://www.latex-project.org/">LaTeX</a>, <a class="reference external" href="https://i3wm.org/">i3</a> and <a class="reference external" href="https://www.mozilla.org/">Mozilla</a>. :)</td></tr>
 </tbody>
 </table>
 </div>
